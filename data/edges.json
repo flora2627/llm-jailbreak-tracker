@@ -1,0 +1,1376 @@
+[
+ {
+  "from": "triggers",
+  "to": "hotflip",
+  "type": "inherit",
+  "label": "梯度翻转 → 通用触发串"
+ },
+ {
+  "from": "autoprompt",
+  "to": "triggers",
+  "type": "inherit",
+  "label": "同一搜索,改去挖知识"
+ },
+ {
+  "from": "gcg",
+  "to": "autoprompt",
+  "type": "inherit",
+  "label": "坐标搜索 + top-k 候选"
+ },
+ {
+  "from": "gcg",
+  "to": "triggers",
+  "type": "inherit",
+  "label": "通用后缀搬到对齐模型"
+ },
+ {
+  "from": "adaptive",
+  "to": "obfgrad",
+  "type": "inherit",
+  "label": "自适应评测纪律搬进 LLM"
+ },
+ {
+  "from": "attacker2nd",
+  "to": "obfgrad",
+  "type": "inherit",
+  "label": "同一诊断的 LLM 重演"
+ },
+ {
+  "from": "ganguli",
+  "to": "redteamlm",
+  "type": "inherit",
+  "label": "自动红队 → 人类红队规模化"
+ },
+ {
+  "from": "ganguli",
+  "to": "hhrlhf",
+  "type": "support",
+  "label": "同一模型族上量出规模趋势"
+ },
+ {
+  "from": "cai",
+  "to": "hhrlhf",
+  "type": "inherit",
+  "label": "人类标注 → 成文原则"
+ },
+ {
+  "from": "llama2",
+  "to": "hhrlhf",
+  "type": "inherit",
+  "label": "开源权重上的安全微调"
+ },
+ {
+  "from": "saferlhf",
+  "to": "hhrlhf",
+  "type": "inherit",
+  "label": "helpful/harmless 拆成两个模型"
+ },
+ {
+  "from": "saferlhf",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "施工「竞争目标」"
+ },
+ {
+  "from": "goalprio",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "竞争目标的推理期实现"
+ },
+ {
+  "from": "delibalign",
+  "to": "cai",
+  "type": "inherit",
+  "label": "宪法交给模型自己推理"
+ },
+ {
+  "from": "dooralign",
+  "to": "shallow",
+  "type": "inherit",
+  "label": "浅层对齐诊断的施工版"
+ },
+ {
+  "from": "alttrain",
+  "to": "delibalign",
+  "type": "inherit",
+  "label": "推理结构本身作为抓手"
+ },
+ {
+  "from": "overrefusal",
+  "to": "saferlhf",
+  "type": "inherit",
+  "label": "helpful/harmless 张力的另一半"
+ },
+ {
+  "from": "overrefusal",
+  "to": "jbb",
+  "type": "support",
+  "label": "过度拒答须与 ASR 一起报"
+ },
+ {
+  "from": "bijection",
+  "to": "ganguli",
+  "type": "refute",
+  "label": "越强的模型被攻得越狠"
+ },
+ {
+  "from": "poisonscale",
+  "to": "ganguli",
+  "type": "refute",
+  "label": "规模是放大因素不是缓解"
+ },
+ {
+  "from": "autodangrad",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "可读版本的梯度攻击"
+ },
+ {
+  "from": "autodangrad",
+  "to": "ppl",
+  "type": "refute",
+  "label": "通顺提示直接穿过 PPL 过滤"
+ },
+ {
+  "from": "beast",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "无梯度束搜索"
+ },
+ {
+  "from": "beast",
+  "to": "baseline",
+  "type": "refute",
+  "label": "一分钟一次,成本高的前提没了"
+ },
+ {
+  "from": "qbap",
+  "to": "gcg",
+  "type": "refute",
+  "label": "迁移不够,查询攻击强得多"
+ },
+ {
+  "from": "adaptive",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "随机搜索 + 手写模板"
+ },
+ {
+  "from": "amplegcg",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "中间后缀不该被丢掉"
+ },
+ {
+  "from": "advprompter",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "把优化蒸馏进生成器"
+ },
+ {
+  "from": "igcg",
+  "to": "gcg",
+  "type": "refute",
+  "label": "单一「Sure」目标限制了性能"
+ },
+ {
+  "from": "fastergcg",
+  "to": "gcg",
+  "type": "refute",
+  "label": "256K → 32K 次评估"
+ },
+ {
+  "from": "fastergcg",
+  "to": "beast",
+  "type": "inherit",
+  "label": "继续压采样成本"
+ },
+ {
+  "from": "amplegcgplus",
+  "to": "amplegcg",
+  "type": "inherit",
+  "label": "更强的后缀生成器"
+ },
+ {
+  "from": "amplegcgplus",
+  "to": "circuitbreak",
+  "type": "refute",
+  "label": "找到 circuit breakers 的破口"
+ },
+ {
+  "from": "advprefix",
+  "to": "igcg",
+  "type": "inherit",
+  "label": "目标前缀做成独立方法"
+ },
+ {
+  "from": "advprefix",
+  "to": "gcg",
+  "type": "refute",
+  "label": "换前缀:14% → 80%"
+ },
+ {
+  "from": "latentbreak",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "把优化搬到潜空间"
+ },
+ {
+  "from": "latentbreak",
+  "to": "ppl",
+  "type": "refute",
+  "label": "主动最小化困惑度"
+ },
+ {
+  "from": "latentbreak",
+  "to": "circuitbreak",
+  "type": "refute",
+  "label": "对 RR 模型 ASR 更高"
+ },
+ {
+  "from": "cfa2",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "同一目标,换因果框架"
+ },
+ {
+  "from": "cfa2",
+  "to": "refusaldir",
+  "type": "inherit",
+  "label": "用 SAE 剥掉防御特征"
+ },
+ {
+  "from": "dan",
+  "to": "jbchatgpt",
+  "type": "inherit",
+  "label": "从模式分类到社区级测绘"
+ },
+ {
+  "from": "masterkey",
+  "to": "jbchatgpt",
+  "type": "inherit",
+  "label": "从人写提示到自动生成"
+ },
+ {
+  "from": "gptfuzzer",
+  "to": "dan",
+  "type": "inherit",
+  "label": "以社群模板为种子做变异"
+ },
+ {
+  "from": "gptfuzzer",
+  "to": "ppl",
+  "type": "refute",
+  "label": "模板层搜索绕开 token 异常"
+ },
+ {
+  "from": "autodan",
+  "to": "dan",
+  "type": "inherit",
+  "label": "在模板语义空间里搜索"
+ },
+ {
+  "from": "autodan",
+  "to": "ppl",
+  "type": "refute",
+  "label": "遗传搜索出的提示天然低困惑度"
+ },
+ {
+  "from": "pair",
+  "to": "redteamlm",
+  "type": "inherit",
+  "label": "用 LM 攻 LM 的黑盒实现"
+ },
+ {
+  "from": "tap",
+  "to": "pair",
+  "type": "inherit",
+  "label": "加树搜索与剪枝"
+ },
+ {
+  "from": "tap",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "带守卫模型仍然有效"
+ },
+ {
+  "from": "deepinception",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "竞争目标的角色扮演实例"
+ },
+ {
+  "from": "pap",
+  "to": "dan",
+  "type": "inherit",
+  "label": "人写越狱 → 说服力分类学"
+ },
+ {
+  "from": "pap",
+  "to": "gcg",
+  "type": "refute",
+  "label": "说服式提示超过算法攻击"
+ },
+ {
+  "from": "crt",
+  "to": "redteamlm",
+  "type": "refute",
+  "label": "RL 红队覆盖率太低"
+ },
+ {
+  "from": "rainbow",
+  "to": "redteamlm",
+  "type": "inherit",
+  "label": "写成质量-多样性问题"
+ },
+ {
+  "from": "rainbow",
+  "to": "crt",
+  "type": "support",
+  "label": "覆盖率与多样性是同一诉求"
+ },
+ {
+  "from": "j2",
+  "to": "pair",
+  "type": "inherit",
+  "label": "攻击者换成被越狱的前沿模型"
+ },
+ {
+  "from": "j2",
+  "to": "crescendo",
+  "type": "inherit",
+  "label": "复用人类红队策略"
+ },
+ {
+  "from": "j2",
+  "to": "ganguli",
+  "type": "refute",
+  "label": "红队人力这个瓶颈被拆掉"
+ },
+ {
+  "from": "infoflood",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "复杂度这一维"
+ },
+ {
+  "from": "infoflood",
+  "to": "smoothllm",
+  "type": "refute",
+  "label": "SmoothLLM 挡不住信息过载"
+ },
+ {
+  "from": "jailbroken",
+  "to": "hhrlhf",
+  "type": "refute",
+  "label": "安全训练没泛化到能力域"
+ },
+ {
+  "from": "jailbroken",
+  "to": "cai",
+  "type": "refute",
+  "label": "含 Claude v1.3,每条都成功"
+ },
+ {
+  "from": "jailbroken",
+  "to": "beb",
+  "type": "support",
+  "label": "经验侧对理论结论的大规模佐证"
+ },
+ {
+  "from": "cipher",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "非自然语言这一维"
+ },
+ {
+  "from": "lowres",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "语言资源这一维"
+ },
+ {
+  "from": "multiling",
+  "to": "lowres",
+  "type": "support",
+  "label": "同月独立证据"
+ },
+ {
+  "from": "artprompt",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "语义之外的表示形式"
+ },
+ {
+  "from": "speakout",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "多轮拆解"
+ },
+ {
+  "from": "pasttense",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "时态这一维"
+ },
+ {
+  "from": "pasttense",
+  "to": "llama2",
+  "type": "refute",
+  "label": "SFT+RLHF 没泛化到时态"
+ },
+ {
+  "from": "crescendo",
+  "to": "speakout",
+  "type": "support",
+  "label": "多轮的另一半:升级而非分解"
+ },
+ {
+  "from": "crescendo",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "逐条消息过滤不完备"
+ },
+ {
+  "from": "manyshot",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "长上下文这一维"
+ },
+ {
+  "from": "bijection",
+  "to": "cipher",
+  "type": "inherit",
+  "label": "密码 → 随机双射"
+ },
+ {
+  "from": "bijection",
+  "to": "manyshot",
+  "type": "inherit",
+  "label": "靠上下文学习现教编码"
+ },
+ {
+  "from": "flipattack",
+  "to": "cipher",
+  "type": "inherit",
+  "label": "左侧噪声伪装"
+ },
+ {
+  "from": "flipattack",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "5 个守卫模型平均约 98% 绕过"
+ },
+ {
+  "from": "flipattack",
+  "to": "shieldgemma",
+  "type": "refute",
+  "label": "守卫模型这一层同样被穿"
+ },
+ {
+  "from": "bon",
+  "to": "amplegcg",
+  "type": "inherit",
+  "label": "批量采样这条路"
+ },
+ {
+  "from": "bon",
+  "to": "manyshot",
+  "type": "support",
+  "label": "同为幂律形状的扩样攻击"
+ },
+ {
+  "from": "bon",
+  "to": "circuitbreak",
+  "type": "refute",
+  "label": "对 circuit breakers 同样有效"
+ },
+ {
+  "from": "hcot",
+  "to": "delibalign",
+  "type": "refute",
+  "label": "安全判断进 CoT,攻击面也进 CoT"
+ },
+ {
+  "from": "cothijack",
+  "to": "hcot",
+  "type": "inherit",
+  "label": "推理模型攻击的第二代"
+ },
+ {
+  "from": "cothijack",
+  "to": "itcompute",
+  "type": "refute",
+  "label": "推理越长越不安全"
+ },
+ {
+  "from": "cothijack",
+  "to": "refusaldir",
+  "type": "inherit",
+  "label": "拒答依赖低维安全信号"
+ },
+ {
+  "from": "structgen",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "收窄成结构泛化问题"
+ },
+ {
+  "from": "structgen",
+  "to": "crescendo",
+  "type": "support",
+  "label": "结构确实改变安全结果"
+ },
+ {
+  "from": "iicl",
+  "to": "manyshot",
+  "type": "inherit",
+  "label": "少样本版本的模式补全"
+ },
+ {
+  "from": "iicl",
+  "to": "msjmitig",
+  "type": "refute",
+  "label": "抽象算子框架不在缓解覆盖内"
+ },
+ {
+  "from": "qifinetune",
+  "to": "llama2",
+  "type": "refute",
+  "label": "微调权限一开放,对齐就不成立"
+ },
+ {
+  "from": "shadow",
+  "to": "llama2",
+  "type": "refute",
+  "label": "100 条样本、1 GPU 小时"
+ },
+ {
+  "from": "shadow",
+  "to": "qifinetune",
+  "type": "support",
+  "label": "同月独立证据,开源权重侧"
+ },
+ {
+  "from": "lermen",
+  "to": "llama2",
+  "type": "refute",
+  "label": "200 美元撤掉 70B 的安全训练"
+ },
+ {
+  "from": "lermen",
+  "to": "qifinetune",
+  "type": "support",
+  "label": "开源权重侧的同一结论"
+ },
+ {
+  "from": "badllama",
+  "to": "lermen",
+  "type": "support",
+  "label": "同组的 13B 规模点"
+ },
+ {
+  "from": "zhan",
+  "to": "qifinetune",
+  "type": "inherit",
+  "label": "搬到 GPT-4:340 条、95%"
+ },
+ {
+  "from": "rando",
+  "to": "hhrlhf",
+  "type": "refute",
+  "label": "RLHF 数据可被投毒种入触发词"
+ },
+ {
+  "from": "rando",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "找对抗提示 → 种一个万能触发词"
+ },
+ {
+  "from": "vaccine",
+  "to": "qifinetune",
+  "type": "refute",
+  "label": "对齐阶段就为扰动留余量"
+ },
+ {
+  "from": "brittle",
+  "to": "qifinetune",
+  "type": "support",
+  "label": "安全机制稀疏,因此易被掀掉"
+ },
+ {
+  "from": "refusaldir",
+  "to": "brittle",
+  "type": "support",
+  "label": "方向版本的同一稀疏性证据"
+ },
+ {
+  "from": "safedata",
+  "to": "qifinetune",
+  "type": "inherit",
+  "label": "良性微调破坏安全做成可控攻击"
+ },
+ {
+  "from": "repnoise",
+  "to": "badllama",
+  "type": "refute",
+  "label": "拿到权重也要生效"
+ },
+ {
+  "from": "shallow",
+  "to": "gcg",
+  "type": "refute",
+  "label": "后缀有效因为对齐只有几个 token 深"
+ },
+ {
+  "from": "shallow",
+  "to": "qifinetune",
+  "type": "refute",
+  "label": "微调攻击与后缀攻击同源"
+ },
+ {
+  "from": "shallow",
+  "to": "hhrlhf",
+  "type": "refute",
+  "label": "RLHF 主要改了前几个 token 的分布"
+ },
+ {
+  "from": "covertft",
+  "to": "qifinetune",
+  "type": "inherit",
+  "label": "加上检测规避"
+ },
+ {
+  "from": "covertft",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "输入输出分类器挡不住编码微调"
+ },
+ {
+  "from": "tar",
+  "to": "badllama",
+  "type": "refute",
+  "label": "数百步微调也拿不掉"
+ },
+ {
+  "from": "tar",
+  "to": "repnoise",
+  "type": "inherit",
+  "label": "tamper-resistance 路线"
+ },
+ {
+  "from": "tar",
+  "to": "brittle",
+  "type": "inherit",
+  "label": "接住安全关键区域这一诊断"
+ },
+ {
+  "from": "poisonscale",
+  "to": "qifinetune",
+  "type": "inherit",
+  "label": "把微调攻击放到规模轴上"
+ },
+ {
+  "from": "hftsurvey",
+  "to": "qifinetune",
+  "type": "inherit",
+  "label": "这条战线的导航"
+ },
+ {
+  "from": "emergent",
+  "to": "qifinetune",
+  "type": "inherit",
+  "label": "窄微调的泛化后果"
+ },
+ {
+  "from": "emergent",
+  "to": "rando",
+  "type": "support",
+  "label": "失准可被后门选择性触发"
+ },
+ {
+  "from": "benignoutlier",
+  "to": "safedata",
+  "type": "support",
+  "label": "离群检测版本的同一结论"
+ },
+ {
+  "from": "jbtuning",
+  "to": "poisonscale",
+  "type": "inherit",
+  "label": "独立出来的 jailbreak-tuning"
+ },
+ {
+  "from": "jbtuning",
+  "to": "tar",
+  "type": "refute",
+  "label": "helpful-only 模型仍可造出"
+ },
+ {
+  "from": "tamperbench",
+  "to": "tar",
+  "type": "refute",
+  "label": "超参扫描下防御普遍失守"
+ },
+ {
+  "from": "tamperbench",
+  "to": "repnoise",
+  "type": "refute",
+  "label": "同上"
+ },
+ {
+  "from": "tamperbench",
+  "to": "vaccine",
+  "type": "refute",
+  "label": "同上"
+ },
+ {
+  "from": "tamperbench",
+  "to": "jbtuning",
+  "type": "support",
+  "label": "jailbreak-tuning 是最严重的攻击"
+ },
+ {
+  "from": "simpleattacks",
+  "to": "tar",
+  "type": "refute",
+  "label": "不微调也能拿下:abliteration"
+ },
+ {
+  "from": "simpleattacks",
+  "to": "repnoise",
+  "type": "refute",
+  "label": "威胁模型定义本身有洞"
+ },
+ {
+  "from": "simpleattacks",
+  "to": "refusaldir",
+  "type": "inherit",
+  "label": "abliteration 就是拒答方向消融"
+ },
+ {
+  "from": "patcher",
+  "to": "tamperbench",
+  "type": "inherit",
+  "label": "回应全参数微调这个缺口"
+ },
+ {
+  "from": "patcher",
+  "to": "cadvul",
+  "type": "inherit",
+  "label": "放大训练期对抗攻击"
+ },
+ {
+  "from": "harmalign",
+  "to": "repnoise",
+  "type": "inherit",
+  "label": "同组的有限样本保证版本"
+ },
+ {
+  "from": "harmalign",
+  "to": "simpleattacks",
+  "type": "refute",
+  "label": "号称同时挡住微调与自适应攻击"
+ },
+ {
+  "from": "ppl",
+  "to": "gcg",
+  "type": "refute",
+  "label": "乱码后缀困惑度极高"
+ },
+ {
+  "from": "baseline",
+  "to": "gcg",
+  "type": "refute",
+  "label": "三类基线防御的系统评估"
+ },
+ {
+  "from": "baseline",
+  "to": "ppl",
+  "type": "support",
+  "label": "确认可分,但误报是真问题"
+ },
+ {
+  "from": "erasecheck",
+  "to": "gcg",
+  "type": "refute",
+  "label": "可证明的后缀防御"
+ },
+ {
+  "from": "rallm",
+  "to": "gcg",
+  "type": "refute",
+  "label": "接近 100% → 约 10% 或更低"
+ },
+ {
+  "from": "smoothllm",
+  "to": "gcg",
+  "type": "refute",
+  "label": "对抗提示对字符扰动脆"
+ },
+ {
+  "from": "smoothllm",
+  "to": "pair",
+  "type": "refute",
+  "label": "对语义攻击也报 SOTA"
+ },
+ {
+  "from": "llamaguard",
+  "to": "dan",
+  "type": "refute",
+  "label": "把审核做成开放权重模型"
+ },
+ {
+  "from": "rpo",
+  "to": "gcg",
+  "type": "refute",
+  "label": "JailbreakBench 上 Llama-2 降到 0%"
+ },
+ {
+  "from": "rpo",
+  "to": "baseline",
+  "type": "inherit",
+  "label": "从启发式基线到 minimax 目标"
+ },
+ {
+  "from": "shallow",
+  "to": "safedecoding",
+  "type": "support",
+  "label": "同一位置,一个当漏洞一个当抓手"
+ },
+ {
+  "from": "safedecoding",
+  "to": "gcg",
+  "type": "refute",
+  "label": "解码期放大安全 token"
+ },
+ {
+  "from": "gradcuff",
+  "to": "gcg",
+  "type": "refute",
+  "label": "拒答损失景观上的检测"
+ },
+ {
+  "from": "shieldgemma",
+  "to": "llamaguard",
+  "type": "inherit",
+  "label": "守卫模型的第二个开放基线"
+ },
+ {
+  "from": "ccls",
+  "to": "cai",
+  "type": "inherit",
+  "label": "宪法从训练搬到分类器"
+ },
+ {
+  "from": "ccls",
+  "to": "dan",
+  "type": "refute",
+  "label": "3000 小时红队没找到通用越狱"
+ },
+ {
+  "from": "ccls",
+  "to": "censorship",
+  "type": "refute",
+  "label": "经验上分类器护栏确实拦住了红队"
+ },
+ {
+  "from": "itcompute",
+  "to": "delibalign",
+  "type": "support",
+  "label": "推理期算力提升鲁棒性"
+ },
+ {
+  "from": "msjmitig",
+  "to": "manyshot",
+  "type": "refute",
+  "label": "微调 + 输入净化组合削弱 MSJ"
+ },
+ {
+  "from": "ccls2",
+  "to": "ccls",
+  "type": "inherit",
+  "label": "exchange 分类器 + 级联 + 线性探针"
+ },
+ {
+  "from": "ccls2",
+  "to": "crescendo",
+  "type": "refute",
+  "label": "在完整对话语境里评估回复"
+ },
+ {
+  "from": "guardverify",
+  "to": "ccls",
+  "type": "refute",
+  "label": "红队只证明试过的攻击不存在"
+ },
+ {
+  "from": "guardverify",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "形式化验证暴露安全洞"
+ },
+ {
+  "from": "guardverify",
+  "to": "censorship",
+  "type": "support",
+  "label": "红队之外需要形式化保证"
+ },
+ {
+  "from": "salo",
+  "to": "refusaldir",
+  "type": "refute",
+  "label": "末端信号被压住时上游仍在"
+ },
+ {
+  "from": "salo",
+  "to": "gcg",
+  "type": "refute",
+  "label": "轨迹检测提升多族攻击检出"
+ },
+ {
+  "from": "jbshield",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "改目标函数的自适应 GCG"
+ },
+ {
+  "from": "jbshield",
+  "to": "salo",
+  "type": "support",
+  "label": "多层一致性优于单层概念相似"
+ },
+ {
+  "from": "jbshield",
+  "to": "attacker2nd",
+  "type": "support",
+  "label": "强的非自适应检测不蕴含鲁棒性"
+ },
+ {
+  "from": "tlat",
+  "to": "lat",
+  "type": "inherit",
+  "label": "无定向 → 定向潜空间攻击"
+ },
+ {
+  "from": "tlat",
+  "to": "circuitbreak",
+  "type": "support",
+  "label": "潜空间训练同向,且算力更低"
+ },
+ {
+  "from": "tlat",
+  "to": "rando",
+  "type": "support",
+  "label": "不需要知道 trigger 也能移除后门"
+ },
+ {
+  "from": "cadvul",
+  "to": "lat",
+  "type": "inherit",
+  "label": "连续嵌入空间上的对抗训练"
+ },
+ {
+  "from": "circuitbreak",
+  "to": "caa",
+  "type": "inherit",
+  "label": "表示工程做成防御"
+ },
+ {
+  "from": "circuitbreak",
+  "to": "gcg",
+  "type": "refute",
+  "label": "直接打断有害表示"
+ },
+ {
+  "from": "circuitbreak",
+  "to": "harmbench",
+  "type": "inherit",
+  "label": "R2D2 之后的下一代"
+ },
+ {
+  "from": "wmdp",
+  "to": "eightmethods",
+  "type": "inherit",
+  "label": "遗忘评测的基准化"
+ },
+ {
+  "from": "unlearnadv",
+  "to": "wmdp",
+  "type": "refute",
+  "label": "10 条无关样本即可恢复 RMU"
+ },
+ {
+  "from": "unlearnadv",
+  "to": "refusaldir",
+  "type": "inherit",
+  "label": "移除激活空间特定方向"
+ },
+ {
+  "from": "deeb",
+  "to": "wmdp",
+  "type": "refute",
+  "label": "预训练期信息仍在权重里"
+ },
+ {
+  "from": "deeb",
+  "to": "unlearnadv",
+  "type": "support",
+  "label": "同季度独立证据"
+ },
+ {
+  "from": "deeb",
+  "to": "eightmethods",
+  "type": "inherit",
+  "label": "做成可判定实验"
+ },
+ {
+  "from": "obfact",
+  "to": "circuitbreak",
+  "type": "refute",
+  "label": "诱导出混淆激活"
+ },
+ {
+  "from": "obfact",
+  "to": "cadvul",
+  "type": "refute",
+  "label": "连续→离散的外推被质疑"
+ },
+ {
+  "from": "obfact",
+  "to": "gradcuff",
+  "type": "refute",
+  "label": "内部特征可被主动整形"
+ },
+ {
+  "from": "obfact",
+  "to": "refusaldir",
+  "type": "inherit",
+  "label": "把方向推到激活可塑性"
+ },
+ {
+  "from": "decodingtrust",
+  "to": "hhrlhf",
+  "type": "refute",
+  "label": "能力提升同时提升攻击面"
+ },
+ {
+  "from": "harmbench",
+  "to": "decodingtrust",
+  "type": "inherit",
+  "label": "可信度全景 → 自动红队专项"
+ },
+ {
+  "from": "harmbench",
+  "to": "gcg",
+  "type": "refute",
+  "label": "AdvBench 之后的标准化横评"
+ },
+ {
+  "from": "strongreject",
+  "to": "harmbench",
+  "type": "refute",
+  "label": "现有评测显著高估越狱效果"
+ },
+ {
+  "from": "strongreject",
+  "to": "gcg",
+  "type": "refute",
+  "label": "接近 100% 的 ASR 被夸大"
+ },
+ {
+  "from": "jbb",
+  "to": "harmbench",
+  "type": "inherit",
+  "label": "同一问题的第二个解"
+ },
+ {
+  "from": "jbb",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "行为集部分取自 AdvBench"
+ },
+ {
+  "from": "jbeval",
+  "to": "strongreject",
+  "type": "support",
+  "label": "判定器分类学解释数字为何不可比"
+ },
+ {
+  "from": "sorry",
+  "to": "harmbench",
+  "type": "inherit",
+  "label": "管「什么该被拒」这一侧"
+ },
+ {
+  "from": "jbtax",
+  "to": "strongreject",
+  "type": "inherit",
+  "label": "把「越狱降低能力」做成独立指标"
+ },
+ {
+  "from": "jbtax",
+  "to": "jbb",
+  "type": "support",
+  "label": "ASR 不等于危害"
+ },
+ {
+  "from": "pandaguard",
+  "to": "jbb",
+  "type": "inherit",
+  "label": "19 攻击 × 12 防御统一交叉"
+ },
+ {
+  "from": "pandaguard",
+  "to": "harmbench",
+  "type": "support",
+  "label": "判定器分歧引入不可忽略方差"
+ },
+ {
+  "from": "boa",
+  "to": "jbb",
+  "type": "inherit",
+  "label": "从「攻击成功了吗」到判定问题"
+ },
+ {
+  "from": "attacker2nd",
+  "to": "baseline",
+  "type": "inherit",
+  "label": "把威胁模型这个问题做完"
+ },
+ {
+  "from": "attacker2nd",
+  "to": "harmbench",
+  "type": "refute",
+  "label": "静态字符串集不足以评测防御"
+ },
+ {
+  "from": "attacker2nd",
+  "to": "adaptive",
+  "type": "support",
+  "label": "自适应纪律的规模化版本"
+ },
+ {
+  "from": "whatmatters",
+  "to": "itcompute",
+  "type": "support",
+  "label": "推理与自省对安全有显著优势"
+ },
+ {
+  "from": "whatmatters",
+  "to": "delibalign",
+  "type": "support",
+  "label": "最安全的三个都是推理模型"
+ },
+ {
+  "from": "whatmatters",
+  "to": "shallow",
+  "type": "support",
+  "label": "前缀攻击平均把 ASR 提高 3.34 倍"
+ },
+ {
+  "from": "jbfoundry",
+  "to": "jbb",
+  "type": "inherit",
+  "label": "让基准跟上攻击演进"
+ },
+ {
+  "from": "jbfoundry",
+  "to": "strongreject",
+  "type": "refute",
+  "label": "统一 harness 内偏差只有 +0.26pp"
+ },
+ {
+  "from": "sok",
+  "to": "harmbench",
+  "type": "inherit",
+  "label": "安全会视角的分类与统一评测"
+ },
+ {
+  "from": "sok",
+  "to": "pandaguard",
+  "type": "inherit",
+  "label": "同类横评,13 攻击 × 5 防御"
+ },
+ {
+  "from": "distasr",
+  "to": "jbb",
+  "type": "refute",
+  "label": "单点 ASR 报数方式不充分"
+ },
+ {
+  "from": "distasr",
+  "to": "pair",
+  "type": "refute",
+  "label": "最好模板 69%,并集 88%"
+ },
+ {
+  "from": "distasr",
+  "to": "bijection",
+  "type": "refute",
+  "label": "36 个变体并集覆盖 100%"
+ },
+ {
+  "from": "distasr",
+  "to": "jbfoundry",
+  "type": "support",
+  "label": "对不上的原因在配置与判定器"
+ },
+ {
+  "from": "caa",
+  "to": "hhrlhf",
+  "type": "inherit",
+  "label": "在对齐模型上做行为方向"
+ },
+ {
+  "from": "dpotox",
+  "to": "hhrlhf",
+  "type": "refute",
+  "label": "对齐没移除能力,只是绕开"
+ },
+ {
+  "from": "hiddenstates",
+  "to": "dpotox",
+  "type": "support",
+  "label": "分层版本的同一结论"
+ },
+ {
+  "from": "refusaldir",
+  "to": "caa",
+  "type": "inherit",
+  "label": "差值方向做到拒答上"
+ },
+ {
+  "from": "refusaldir",
+  "to": "hiddenstates",
+  "type": "support",
+  "label": "单方向与分层叙事互相支持"
+ },
+ {
+  "from": "refusaldir",
+  "to": "llama2",
+  "type": "refute",
+  "label": "擦掉一个方向就不再拒答"
+ },
+ {
+  "from": "safetyheads",
+  "to": "refusaldir",
+  "type": "support",
+  "label": "注意力头粒度的稀疏性证据"
+ },
+ {
+  "from": "safetyheads",
+  "to": "brittle",
+  "type": "support",
+  "label": "第三份独立的稀疏性证据"
+ },
+ {
+  "from": "refusalcone",
+  "to": "refusaldir",
+  "type": "refute",
+  "label": "不止一个方向,而是概念锥"
+ },
+ {
+  "from": "somdir",
+  "to": "refusaldir",
+  "type": "refute",
+  "label": "多方向优于单方向,也优于越狱算法"
+ },
+ {
+  "from": "somdir",
+  "to": "refusalcone",
+  "type": "support",
+  "label": "两条独立技术路线同向"
+ },
+ {
+  "from": "refusaluniv",
+  "to": "refusaldir",
+  "type": "inherit",
+  "label": "跨 14 种语言的普适性"
+ },
+ {
+  "from": "refusaluniv",
+  "to": "lowres",
+  "type": "support",
+  "label": "给跨语言越狱一个机制解释"
+ },
+ {
+  "from": "refusaluniv",
+  "to": "multiling",
+  "type": "support",
+  "label": "同上"
+ },
+ {
+  "from": "steersafety",
+  "to": "caa",
+  "type": "refute",
+  "label": "转向方法之间存在明显纠缠"
+ },
+ {
+  "from": "steersafety",
+  "to": "lat",
+  "type": "refute",
+  "label": "被评方法之一,纠缠同样明显"
+ },
+ {
+  "from": "steermech",
+  "to": "caa",
+  "type": "inherit",
+  "label": "转向向量到底改了什么"
+ },
+ {
+  "from": "steermech",
+  "to": "refusaldir",
+  "type": "inherit",
+  "label": "以拒答为案例做机制分析"
+ },
+ {
+  "from": "lasttoken",
+  "to": "salo",
+  "type": "support",
+  "label": "同一诊断的两个独立版本"
+ },
+ {
+  "from": "lasttoken",
+  "to": "gradcuff",
+  "type": "refute",
+  "label": "末端读出丢掉了信息"
+ },
+ {
+  "from": "beb",
+  "to": "hhrlhf",
+  "type": "refute",
+  "label": "只削弱不消除的对齐都不安全"
+ },
+ {
+  "from": "beb",
+  "to": "cai",
+  "type": "refute",
+  "label": "同上,含 RLAIF"
+ },
+ {
+  "from": "censorship",
+  "to": "jbchatgpt",
+  "type": "inherit",
+  "label": "审查从 ML 问题改判为安全问题"
+ },
+ {
+  "from": "censorship",
+  "to": "beb",
+  "type": "support",
+  "label": "两条独立的不可能性方向"
+ },
+ {
+  "from": "provable",
+  "to": "erasecheck",
+  "type": "inherit",
+  "label": "认证鲁棒性的第二代"
+ },
+ {
+  "from": "provable",
+  "to": "beb",
+  "type": "refute",
+  "label": "在可证半径内给出确定性证书"
+ }
+]

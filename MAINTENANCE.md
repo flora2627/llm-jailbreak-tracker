@@ -1,0 +1,215 @@
+# 维护笔记
+
+给维护者(和 AI 助手)看的:怎么加论文、页面怎么组织、图为什么这么画,以及历次更新与订正的留档。
+**项目介绍在 [README.md](README.md)。**
+
+姊妹项目 [`../llm-backdoor-tracker`](../llm-backdoor-tracker) 用的是**同一套 `build.py` 与 `template.html`**
+(本项目从它复制而来,只改了数据与文案)。**那边的 MAINTENANCE 仍然是这套管线的权威说明**,
+本文只写本项目自己的东西与差异。
+
+---
+
+## 每周更新流程
+
+### 1. 扫新论文
+
+**沙箱里 `curl` 出不去(静默返回空),`WebFetch` 走得通。别在 curl 上浪费时间。**
+本轮实测:`export.arxiv.org/api/query` 会返回 **429 / socket hang up**(整个出口 IP 被限流,
+换 URL 参数也没用,冷却时间以十分钟计);而 **`arxiv.org/abs/<id>` 页面可以并行拉,5 路稳定**,
+而且一次就能拿到标题 + 完整作者 + v1 日期 + comments + **完整摘要**——正好是建条目需要的全部字段。
+**所以本项目的核验主路径是 `WebFetch` 打 abs 页,不是 API。**
+
+发现新论文用 `WebSearch`(限定 `allowed_domains: ["arxiv.org"]`),它对 2025–2026 的新文覆盖很好;
+搜到 id 之后**一律回 abs 页核对**,不要直接采信搜索结果的转述。有效的查询角度:
+
+- 按攻击族:`jailbreak 多轮 / 密码 / 长上下文 / 推理模型 / 微调`
+- 按防御族:`guardrail classifier / tamper resistance / latent-space monitoring / unlearning robustness`
+- **按「谁打谁」**:`circuit breakers bypass`、`constitutional classifiers broken`、`refusal direction critique`
+  —— 这一类最有效,因为本图要的就是反驳边
+- 引用追踪:引用了 GCG(2307.15043)、Jailbroken(2307.02483)、Qi 微调(2310.03693)、
+  refusal direction(2406.11717)、The Attacker Moves Second(2510.09023)的新文
+
+### 2. 加条目 → `data/papers.json`
+
+字段在姊妹项目基础上多了一个 `t0`
+(`id/label/lane/t0/t/title/authors/year/venue/arxiv/url/kind/check/note`)。本项目的差异:
+
+- `lane` 是 **0–10**(十一条),见 `lanes.json`
+- **`t0` 用 `spread.py` 里的 `T(year, month)` 算,`t` 交给 `spread.py` 生成**,两者的分工见下面「图的设计约定」
+- **`check` 目前全部是 `confirmed`,保持这个状态**。新加的先写 `unchecked`,当轮清干净,别攒
+- **`kind` 现在全是 `paper`。** 一旦收进 LessWrong / 机构博客,记得标 `blogpost`(图上画成方形)
+
+### 3. 加边 → `data/edges.json`
+
+三种类型的用法在本项目里是这样约定的(比姊妹项目更严一点,因为攻防互打特别多):
+
+| `type` | 用在什么情况 |
+|---|---|
+| `inherit` | 延续同一条方法线或同一个问题陈述 |
+| `support` | 独立复现、同向证据、互相印证 |
+| `refute` | **攻击打穿防御** 或 **防御把某个攻击的 ASR 打下去** 或 **划出对方结论的上限 / 反转它** |
+
+**方向恒为 `from` → `to`,读作「from 对 to 做了这件事」。**
+
+> **硬规矩:边必须时间正向。** `from` 的 **`t0`** 必须 ≥ `to` 的 `t0`。
+> 一篇 2024-02 的论文不可能反驳一篇 2024-08 的论文——这是本轮建库时抓到过 3 处的错误。
+> **注意查 `t0` 不是 `t`:**`t` 是经过横向铺开的显示坐标,近同期的两个条目会在 `t` 上互换先后,
+> 那是排版而不是错误。校验脚本在下一节。
+
+> **不要加没有边的条目。** `build.py` 会把孤儿节点判为错误并中止。
+
+### 4. 加战线 → `data/fronts.json`
+
+三条硬规矩与姊妹项目相同(`build.py` 会 warn)。本项目额外约定:
+
+- **每条 bullet 都带 arXiv id**,不要只靠粗体名字匹配。本项目的 label 做过缩短(见下),
+  粗体名字匹配比姊妹项目更容易挂不上。唯一的例外是 `manyshot`(无 arXiv),它必须写成 **Many-shot** 才能匹配上 label。
+- `note` 第一句写 crux,而且本领域 crux 的形式高度固定,基本只有四种:
+  **威胁模型不同 / 攻击者预算不同 / 判定口径不同 / 量词位置不同**。写不出属于哪一种,通常说明这条战线还没想清楚。
+
+### 5. 构建 + 自检 + 验
+
+```bash
+python3 build.py
+
+# 边的时间方向 + 孤儿 + 重复(build.py 不查时间方向,这条要单独跑)
+python3 - <<'EOF'
+import json, collections
+P=json.load(open("data/papers.json")); E=json.load(open("data/edges.json"))
+t={p["id"]:p["t0"] for p in P}          # ← 用 t0(真实日期),不是 t(铺开后的显示坐标)
+rev=[(e["from"],e["to"],e["label"]) for e in E if t[e["from"]]<t[e["to"]]]
+print("时间倒挂:", rev)
+dup=[k for k,v in collections.Counter((e["from"],e["to"],e["type"]) for e in E).items() if v>1]
+print("重复边:", dup)
+EOF
+
+# 生成的 JS 语法检查
+node --check <(python3 -c "import re;s=open('index.html').read();print(re.search(r'<script>(.*)</script>',s,re.S).group(1))")
+
+# 无头截图(#graph / #brief / #fronts / #misread / #refs / #method / #n/gcg 各一张)
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu \
+  --virtual-time-budget=5000 --window-size=1440,1100 --screenshot=/tmp/shot.png \
+  "file://$PWD/index.html#graph"
+```
+
+---
+
+## 图的设计约定(改数据前先看)
+
+- **十一条泳道,顺序是排过的,不要随手改。** 当前顺序:
+  `对抗根系 | 对齐训练 | 评测基建 | 离散优化攻击 | 语义/黑盒攻击 | 分布偏移·多轮 | 推理期防御 | 训练期防御 | 微调·权重篡改 | Mech-interp | 理论天花板`
+  这个顺序是**在「三条攻击泳道相邻 + 两条防御泳道相邻 + 根系在首、理论在尾」的约束下,
+  枚举 9! 种排列、最小化 Σ(边数 × 跨泳道距离)** 选出来的:cost 357,而按叙事直觉排是 412。
+  布线算法把每条边放进 `floor((laneA+laneB)/2)` 的通道,**跨度越长,中间泳道的轨道越挤**,
+  所以泳道顺序直接决定图有多高。改顺序前先跑一遍这个优化。
+
+- **横轴 `t` 是像素坐标,不是年份。** 对照 `years.json`:2017→200,2022→540,2023→700,2025→1400,2026→1760。
+  2023–2025 那段被刻意拉宽(每年约 350 个 t 单位),因为条目密度集中在这里。
+
+- **`t` 上做过一次「有上限的横向铺开」,基准是 `t0`。** 每条 `papers.json` 记录有两个时间坐标:
+  **`t0` 是由 `T(year, month)` 算出的真实时间位置**(判定边的先后、写注记时以它为准),
+  **`t` 是排版用的显示坐标**。2023-10 那种一个月挤进四篇的情况会让标签叠成 6 层,
+  所以 `spread.py` 按标签宽度把同泳道条目推开,**单条相对 `t0` 的位移上限 55 个 t 单位(约两个月),顺序不变**。
+  脚本**每次都从 `t0` 重算,因此幂等**——反复跑不会累积漂移。
+  代价是**节点横向位置不能用来读精确日期**,近同期的两个条目甚至会在图上互换先后。精确日期在条目卡与资料表里。
+  加新条目后如果 `build.py` warn「标签需要 >3 层」,跑一次 `python3 spread.py` 再 build。
+
+- **label 要短。** 本项目做过一轮统一缩短(`Do Anything Now`→`DAN`、`形式化守卫验证`→`守卫验证`、
+  `AmpleGCG-Plus`→`AmpleGCG+`…)。中文字符在排版里按 1.0 计宽、拉丁按 0.6,**中文 label 尽量 ≤5 字**。
+
+- 其余(节点大小=边数、琥珀描边=做过反驳、虚线描边=常被误读、正交通道布线)与姊妹项目相同。
+
+---
+
+## 本项目的内容纪律(在姊妹项目那几条之外)
+
+1. **数字必须当场从 abs 页的摘要里抄。** 本项目的 133 条注记全部这样写的。
+   摘要里没给的数字**就不写**,不要从论文正文的记忆里补。
+2. **ASR 数字必须带上下文。** 本领域跨论文的 ASR 不可比(判定器、变体配置、成功的定义三处都不同)。
+   写注记时至少带上模型名或基准名;能带判定器就带。
+3. **区分「攻击强」与「危害真」。** 提示越狱要付能力税(见战线 12),权重越狱不付。
+   **跨泳道比较 ASR 是本领域最常见的错误**,注记里不要犯。
+4. **同名论文要显式区分。** `AutoDAN` 有两篇(2310.04451 遗传 / 2310.15140 梯度),
+   两条注记里都写了「与另一篇同名,注意区分」。再遇到同名情况照此办理。
+5. **防御条目默认按「未面对自适应攻击」处理。** 这是 2510.09023 立下的口径,
+   本图所有防御注记都按它打折。写新防御条目时,如果原文没做自适应评测,注记里要说。
+
+---
+
+## 历史留档
+
+### 2026-08-24 · 建库(第一轮)
+
+从 `../llm-backdoor-tracker` 复制 `build.py` / `template.html` / `LICENSE` / `.gitignore`,
+重写全部数据与文案。产出:133 条目 · 229 边 · 13 战线 · 46 条误读标记 · 11 泳道。
+
+**核验方式:**133 条**逐条 WebFetch 拉 `arxiv.org/abs/<id>`**,核对标题、完整作者、v1 日期、comments 与摘要正文。
+唯一没有 arXiv 的是 Many-shot Jailbreaking,拉的是 NeurIPS 2024 论文集页。
+
+**本轮抓到的自身错误(凭记忆填 id 导致,已订正):**
+
+| 想收的论文 | 记成的 id | 那个 id 实际是什么 | 正确 id |
+|---|---|---|---|
+| Detecting Language Model Attacks with Perplexity | `2308.14539` | 质子交换膜燃料电池气体扩散层两相动力学 | `2308.14132` |
+| JailbreakEval | `2408.09321` | Nullnorms on bounded trellises | `2406.09321` |
+
+两处都是**数字位置记错,论文本身真实存在**。这印证了姊妹项目的那条经验:**id 记得住,数字记不住**。
+本项目因此不接受任何未经当场抓取的书目字段。
+
+**本轮修过的建模错误:**
+
+- 3 条边**时间倒挂**(`brittle→refusaldir`、`rpo→adaptive`、`safedecoding→shallow`),
+  即用早的论文去反驳/继承晚的论文。已分别改成反向 support 或改挂到更早的目标上。
+  **`build.py` 不查这个,必须单独跑校验。**
+- 5 条抗篡改防御(Vaccine / RepNoise / TAR / Patcher / HarmAlign)**原本放在「微调·权重篡改」泳道**,
+  导致该泳道 22 条、标签叠 6 层。改归「训练期防御」——它们确实是训练期防御,只是针对开放权重场景。
+- 泳道顺序**原本按叙事直觉排**(根系→对齐→攻击→防御→评测→interp→理论),cost 412;
+  按上面那个约束优化后改成当前顺序,cost 357,图高从 3400+ 降到 3075。
+
+### 本轮看过、判定超范围、故意不入图
+
+- **prompt injection / 间接注入 / agent 劫持** —— 威胁模型是突破**指令层级**而非 harmfulness 拒答,
+  边的语义与本图不同,混进来会让 `refute` 失去意义。注意 2510.09023 标题里同时有 jailbreaks 与
+  prompt injections,**本图只取它的越狱那一半**。
+- **多模态越狱(VLM / 语音)** —— 文献量大但与文本线的对话面窄。少数横跨条目
+  (2412.03556 Best-of-N、2406.04313 circuit breakers)按其**文本部分**收录,多模态结果不作为本图证据。
+- **搜索里出现但无法定位到可核实 arXiv id 的「理论不可能性」转述** —— 本轮专门搜过越狱的理论上界,
+  搜索结果里有若干「证明了 X 不可能」的说法,但都追不到具体 id,**一律不收**。
+  这是理论泳道只有 3 个点的直接原因之一。
+
+---
+
+## 待办
+
+### 最大的单一缺口
+
+**LessWrong / Alignment Forum 从未系统扫过。** 姊妹项目的经验是这个圈子有承重结果只发在那里
+(典型:Sleeper Agents 的复现研究)。越狱这边大概率同样如此——尤其是 abliteration 这类
+**先在社区流行、后来才被论文化**的技术,它的原始记录几乎肯定在 LW 或 HuggingFace 讨论区。
+扫法:LW 的 `AI` / `AI Control` 标签按新排序,以及 alignmentforum.org;
+机构博客:alignment.anthropic.com、UK AISI、Gray Swan、FAR AI、Redwood、Apollo。
+
+### 其余
+
+- **按 venue 与实验室检索**(DBLP 逐年翻 CCS / NDSS / USENIX Sec / S&P)。
+  本轮以 arXiv 为主入口,纯论文集条目基本没进来。姊妹项目的教训:安全顶会论文九成在 arXiv 上,
+  但用的是安全圈词汇,按主题关键词搜不出来。
+- **理论泳道需要独立确认。** 只有 3 个点,而且是搜索 + 核实之后的结果。
+  值得请一个熟悉这块的人过一遍——**如果确实只有这么多,那本身就是一条值得写出来的观察**。
+- **中文与非英文文献未覆盖。**
+- **战线 09 指出的空洞:** 「在微调**之后**做行为评测」这条路线目前没有任何一篇论文系统研究过。
+  如果找到了,那会是一条重要的新边。
+
+---
+
+## 附:`spread.py`
+
+加新条目后 `build.py` warn「标签需要 >3 层」时跑一次:
+
+```bash
+python3 spread.py && python3 build.py
+```
+
+它从每条记录的 `t0` 重新计算 `t`,**幂等**(连跑两次 `papers.json` 的 md5 不变)。
+新条目必须带 `t0`;`t` 可以先随便填,`spread.py` 会覆盖它。
+`t0` 由 `T(year, month)` 按 `years.json` 插值算出——直接复用 `spread.py` 顶部的同名函数。
