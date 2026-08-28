@@ -58,10 +58,10 @@ llm-jailbreak-tracker/
 ├── template.html      ← 页面骨架 + CSS + 渲染器,不含数据
 ├── index.html         ← 生成产物,不要手改
 └── data/
-    ├── papers.json    ← 条目库(179) ← 主要在这里加东西
-    ├── edges.json     ← 签名边(320) ← 和这里
+    ├── papers.json    ← 条目库(185) ← 主要在这里加东西
+    ├── edges.json     ← 签名边(331) ← 和这里
     ├── fronts.json    ← 交火战线卡片(13)
-    ├── misread.json   ← 「常被系统性误读」标记(51)
+    ├── misread.json   ← 「常被系统性误读」标记(52)
     ├── lanes.json     ← 十一条主干泳道
     └── years.json     ← 时间轴刻度 [年份, t 坐标]
 ```
@@ -74,8 +74,8 @@ llm-jailbreak-tracker/
 
 | | |
 |---|---|
-| 条目 | 179(174 有 arXiv · 1 只在 NeurIPS 论文集 · 4 博客/标准发布) |
-| 边 | 320 —— 继承 141 · **佐证 77** · **反驳 102** |
+| 条目 | 185(181 有 arXiv · 1 只在 NeurIPS 论文集 · 3 博客/标准发布) |
+| 边 | 331 —— 继承 144 · **佐证 82** · **反驳 105** |
 | 战线 | 13 条交火中 |
 | 引用核验 | **154 confirmed · 1 无 arXiv(NeurIPS 论文集,已核对)· 0 待核** |
 | 泳道 | 11 条 · 2017–2026 |

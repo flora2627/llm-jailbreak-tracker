@@ -1918,5 +1918,71 @@
   "to": "jbfoundry",
   "type": "inherit",
   "label": "基准跟上攻击演进的机构标准化版"
+ },
+ {
+  "from": "filterimp",
+  "to": "beb",
+  "type": "support",
+  "label": "不可能性家族的第二条主线:过滤侧"
+ },
+ {
+  "from": "filterimp",
+  "to": "censorship",
+  "type": "support",
+  "label": "输出过滤不可行的密码学强化版"
+ },
+ {
+  "from": "jbparadox",
+  "to": "beb",
+  "type": "support",
+  "label": "不可能性家族:判定器侧两条悖论"
+ },
+ {
+  "from": "jbparadox",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "弱模型检测强模型的理论上限"
+ },
+ {
+  "from": "rcs",
+  "to": "erasecheck",
+  "type": "inherit",
+  "label": "可证防御谱系的共识采样支"
+ },
+ {
+  "from": "mtk",
+  "to": "salo",
+  "type": "inherit",
+  "label": "轨迹检测:从拒答轨迹到流形轨迹动力学"
+ },
+ {
+  "from": "mtk",
+  "to": "attacker2nd",
+  "type": "support",
+  "label": "自适应攻击写进评测的少数防御"
+ },
+ {
+  "from": "slmeval",
+  "to": "decodingtrust",
+  "type": "refute",
+  "label": "脆弱性系于训练细节而非规模"
+ },
+ {
+  "from": "slmeval",
+  "to": "crescendo",
+  "type": "support",
+  "label": "模型级防御对多轮攻击泛化差"
+ },
+ {
+  "from": "metobreak",
+  "to": "masterkey",
+  "type": "inherit",
+  "label": "打在线服务:从时间竞争/加密到 token 层"
+ },
+ {
+  "from": "metobreak",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "同时绕过内部对齐与外部审核"
  }
 ]
