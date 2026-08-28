@@ -1656,18 +1656,6 @@
   "label": "换掉不现实假设,补概率证书"
  },
  {
-  "from": "adversa",
-  "to": "jbeval",
-  "type": "inherit",
-  "label": "判定器可靠性升级为一等研究对象"
- },
- {
-  "from": "sokmt",
-  "to": "adversa",
-  "type": "support",
-  "label": "越狱集中早轮,与「组织度而非轮数」同向"
- },
- {
   "from": "mood",
   "to": "pasttense",
   "type": "inherit",
@@ -1678,18 +1666,6 @@
   "to": "refgeom",
   "type": "support",
   "label": "训练数据多样性作为硬化杠杆"
- },
- {
-  "from": "ico",
-  "to": "deepinception",
-  "type": "inherit",
-  "label": "场景上下文 → 上下文语义偏移优化"
- },
- {
-  "from": "ico",
-  "to": "pair",
-  "type": "inherit",
-  "label": "目标反馈迭代的黑盒循环"
  },
  {
   "from": "sema",
@@ -1722,12 +1698,6 @@
   "label": "先行的心理操纵多轮攻击证据"
  },
  {
-  "from": "crg",
-  "to": "cothijack",
-  "type": "refute",
-  "label": "推理期路由守卫针对推理中心越狱(未给数字)"
- },
- {
   "from": "probguard",
   "to": "safedecoding",
   "type": "inherit",
@@ -1744,18 +1714,6 @@
   "to": "refusaldir",
   "type": "support",
   "label": "拒答可由内部信号触发"
- },
- {
-  "from": "hiroute",
-  "to": "rpo",
-  "type": "inherit",
-  "label": "单一提示 → 路由式提示专家"
- },
- {
-  "from": "hiroute",
-  "to": "overrefusal",
-  "type": "support",
-  "label": "安全-可用性权衡进设计目标"
  },
  {
   "from": "advsafe",
@@ -1942,12 +1900,6 @@
   "to": "llamaguard",
   "type": "refute",
   "label": "弱模型检测强模型的理论上限"
- },
- {
-  "from": "rcs",
-  "to": "erasecheck",
-  "type": "inherit",
-  "label": "可证防御谱系的共识采样支"
  },
  {
   "from": "mtk",
