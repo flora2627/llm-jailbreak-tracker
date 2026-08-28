@@ -1840,5 +1840,83 @@
   "to": "abliteration",
   "type": "inherit",
   "label": "系统评测引用的技术源头"
+ },
+ {
+  "from": "cls",
+  "to": "refusaldir",
+  "type": "support",
+  "label": "安全是可操纵线性轴的又一证"
+ },
+ {
+  "from": "cls",
+  "to": "caa",
+  "type": "refute",
+  "label": "logit 层暴露激活层方法低估的脆弱性"
+ },
+ {
+  "from": "ablate",
+  "to": "abliteration",
+  "type": "inherit",
+  "label": "社区配方变成受控评测协议"
+ },
+ {
+  "from": "ablate",
+  "to": "jbtax",
+  "type": "support",
+  "label": "去审查的代价做成效用-风险前沿"
+ },
+ {
+  "from": "doubtprobe",
+  "to": "goalprio",
+  "type": "inherit",
+  "label": "提示级防御:目标结构一致性检查"
+ },
+ {
+  "from": "doubtprobe",
+  "to": "jbshield",
+  "type": "support",
+  "label": "多层一致性优于单层的又一证"
+ },
+ {
+  "from": "jpu",
+  "to": "unlearnadv",
+  "type": "inherit",
+  "label": "遗忘失效机制的路径版:参数重组"
+ },
+ {
+  "from": "jpu",
+  "to": "deeb",
+  "type": "support",
+  "label": "擦除不彻底的参数级证据"
+ },
+ {
+  "from": "narrowdomain",
+  "to": "llamaguard",
+  "type": "refute",
+  "label": "I/O 分类器在窄域也不能全解"
+ },
+ {
+  "from": "ccls",
+  "to": "narrowdomain",
+  "type": "inherit",
+  "label": "转录分类器是宪法分类器的直系前身"
+ },
+ {
+  "from": "prja",
+  "to": "cothijack",
+  "type": "inherit",
+  "label": "推理过程成为攻击面的第二代:污染"
+ },
+ {
+  "from": "prja",
+  "to": "pap",
+  "type": "inherit",
+  "label": "权威服从+道德脱离的心理框架"
+ },
+ {
+  "from": "mlcommons",
+  "to": "jbfoundry",
+  "type": "inherit",
+  "label": "基准跟上攻击演进的机构标准化版"
  }
 ]
