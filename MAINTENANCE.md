@@ -146,6 +146,22 @@ node --check <(python3 -c "import re;s=open('index.html').read();print(re.search
 
 ## 历史留档
 
+### 2026-08-28 · 观察:图上有四条「自己反对自己」的边
+
+用 refute 边两端作者交集扫描全图(注意姓氏碰撞:Saha≠Saha,Wang/Li/Zhang 噪声极大,须回原文名单核对),
+坐实四例,全部是原班人马给自己的早期结论划上限或换叙事:
+
+| 边 | 共享作者 | 发生了什么 |
+|---|---|---|
+| QBAP →refute→ GCG | Carlini, Nasr | **GCG 作者自己**证明「后缀迁移不够,查询攻击强得多」——旗舰攻击的显著性被原班人马亲手降级 |
+| 浅层对齐 →refute→ Qi 微调 | Qi, Mittal, Henderson | 微调攻击原班人马自己发「对齐只有几个 token 深」,把自己的攻击故事**重新解释**成机制故事 |
+| SmoothLLM →refute→ PAIR | Robey, Wong, Hassani, Pappas | UPenn 同一组四人**左右互搏**:防御论文声称挡住包括自家攻击在内的语义攻击 |
+| MSJ 缓解 →refute→ Many-shot | Panickssery (Anthropic) | 机构级自反:many-shot 攻击的作者(们)随后出缓解论文削弱自家攻击 |
+
+附带弧线:Robey 写完 SmoothLLM 后的两年转向纯攻击侧(BoN / NINJA / 后缀迁移),「防御作者改行攻击」。
+方法论教训:作者交集要用**全名+组合**核对,姓氏单点匹配在 Wang/Li/Zhang 上必假阳性;
+本图 185→180 个条目里 wang/li/zhang 三姓各挂 30+ 篇,不可用于任何判定。
+
 ### 2026-08-28 · 复审修剪(当日五轮后)
 
 一天 +52 条目(+39%)对精选图来说过快,按收录纪律做了对抗性复审,裁 5 个「双不沾」条目
