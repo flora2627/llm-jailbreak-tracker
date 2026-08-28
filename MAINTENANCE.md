@@ -29,6 +29,14 @@
 - 引用追踪:引用了 GCG(2307.15043)、Jailbroken(2307.02483)、Qi 微调(2310.03693)、
   refusal direction(2406.11717)、The Attacker Moves Second(2510.09023)的新文
 
+**按日期窗口穷举(2026-08-28 实测,比关键词搜索更可靠,推荐做主路径):**
+`arxiv.org/search/advanced` 支持 URL 直达——`terms-0-term=jailbreak&date-filter_by=date_range
+&date-from_date=<起>&date-to_date=<止>&date-date_type=submitted_date&size=50&order=-announced_date_first`,
+翻页改 `start=50/100`。一轮拿到「提交日期在窗口内、全文含 jailbreak」的完整清单(一个月约 120–130 条),
+再按范围规则人工筛。两个坑:①月度列表页 `arxiv.org/list/cs.CR/2608` **月中 404**,要月末才生成,
+穷举请走 advanced search;②`WebSearch` 后端索引对**当月**新文有滞后(会声称 2608 不存在),
+不要据此判断「本月没有新论文」——直接去拉列表页。
+
 ### 2. 加条目 → `data/papers.json`
 
 字段在姊妹项目基础上多了一个 `t0`
@@ -37,7 +45,7 @@
 - `lane` 是 **0–10**(十一条),见 `lanes.json`
 - **`t0` 用 `spread.py` 里的 `T(year, month)` 算,`t` 交给 `spread.py` 生成**,两者的分工见下面「图的设计约定」
 - **`check` 目前全部是 `confirmed`,保持这个状态**。新加的先写 `unchecked`,当轮清干净,别攒
-- **`kind` 现在全是 `paper`。** 一旦收进 LessWrong / 机构博客,记得标 `blogpost`(图上画成方形)
+- **`kind` 大多数是 `paper`;机构研究博客标 `blogpost`(图上画成方形)。** 第一个是 SLEIGHT-Bench(Anthropic+Redwood,2026-08-28 收)。
 
 ### 3. 加边 → `data/edges.json`
 
@@ -138,7 +146,42 @@ node --check <(python3 -c "import re;s=open('index.html').read();print(re.search
 
 ## 历史留档
 
-### 2026-08-24 · 建库(第一轮)
+### 2026-08-28 · 第二轮更新(+21 论文 · +1 博客 · +47 边)
+
+覆盖 2026-07-25 → 2026-08-28 的提交窗口(上一轮止于 2607.22929)。枚举用 advanced search 按日期窗口
+拿全 128 条「提及 jailbreak」的提交,按范围规则筛掉多模态 / agent / prompt-injection / 应用域后剩约 30,
+再按「能否与现有节点构成立场边」收 21 篇;另收第一个 `blogpost` 条目(SLEIGHT-Bench)。
+
+**主题聚类(本轮新增的对话线):**
+- **预训练底座成为威胁模型的锚点**:BAJ(2608.26506,EMNLP-F)+ One Leak Away(2512.14751,CCS,同组)
+  ——洞在底座,微调与合并都修不掉;与 SkillSafe-Bench(2608.08542)构成「合并安全」三角。
+- **「摊开安全信号」防御簇**:NeuronGuard(2608.23959,EMNLP-F)+ DSA(2608.01414)同月同向,
+  都直接接「剪枝脆性」诊断;拒答几何(2608.25390)从训练动力学侧解释稀疏从哪来,并给硬化杠杆。
+- **内部评分被反序**:评分反序(2608.09624)给潜空间监测线(战线 07)迄今最重反证——
+  outcome AUROC 0.220,成功的攻击排到失败的后面。
+- **认证鲁棒性进多轮**:MTCR(2608.20820)+ SmoothLLM 概率证书(2511.18721),理论泳道 3→5 个点。
+- **口径与预算**:Fair-ASR(2608.17360)给战线 05 加「目标调用预算」维;多轮 SoK(2608.01117)
+  把战线 10 的 crux 收敛为「意图组织度」。
+- **认知税**:Fool's Gold(2608.17202,Russinovich 单作者)把「权重级攻击不付能力税」改写成
+  「付认知税」——打穿与拿到真货脱钩,战线 11/12 各加一弹。
+
+**核验方式:**与建库轮相同,22 条逐条 WebFetch 拉原文页面(abs 页 / 博客页),书目字段与数字当场抄。
+其中 7 篇 v1 早于本轮窗口(2025-05 ~ 2026-05,建库轮漏收),t0 一律按 v1 计;LogiBreak(2505.13527)
+按 ACL 2026 Findings 正式发表收录。
+
+**本轮看过、判定超范围、故意不入图(在原三条之外):**
+- 8 月的 agent / prompt-injection / 工具调用安全一波(When Context Gets Root、Framing Gap、
+  TraceSafe、SkillShield、 embodied survey 等)——威胁模型是指令层级,不收。
+- 多模态 / T2I / T2V / 音频一批(TempJail ×2、MMJailBench、GuardPaint、COMIC、SafeCA、
+  prosody-driven 等)——多模态线,不收。
+- Anthropic 研究博客 2026 上半年的其它帖子(Diffuse AI Control、Teaching Claude Why、
+  Abstractive Red-Teaming)——对象是 sandbagging / character / 泛化,不是 harmfulness 拒答,不收;
+  Gray Swan 2026-08 只有一篇「安全蛇油鉴别指南」,立场图用不上。
+- **X / Twitter writeup 无法核验**:x.com 正文登录墙挡住 WebFetch,搜索只有转述没有原文,
+  按本项目「不接受未经当场抓取的书目字段」的纪律,**一律不收**。用户点名要的 X 线,
+  现状是「抓不到原文」,等有可核验的镜像(nitter 类)再补。
+
+
 
 从 `../llm-backdoor-tracker` 复制 `build.py` / `template.html` / `LICENSE` / `.gitignore`,
 重写全部数据与文案。产出:133 条目 · 229 边 · 13 战线 · 46 条误读标记 · 11 泳道。
@@ -183,7 +226,8 @@ node --check <(python3 -c "import re;s=open('index.html').read();print(re.search
 
 ### 最大的单一缺口
 
-**LessWrong / Alignment Forum 从未系统扫过。** 姊妹项目的经验是这个圈子有承重结果只发在那里
+**LessWrong / Alignment Forum 从未系统扫过。**(2026-08-28 试过一次:`/tag/ai-control` 页面
+WebFetch 拿到的是数年前的缓存快照,没有当月内容;需要换 allPosts 按时间翻页重试。) 姊妹项目的经验是这个圈子有承重结果只发在那里
 (典型:Sleeper Agents 的复现研究)。越狱这边大概率同样如此——尤其是 abliteration 这类
 **先在社区流行、后来才被论文化**的技术,它的原始记录几乎肯定在 LW 或 HuggingFace 讨论区。
 扫法:LW 的 `AI` / `AI Control` 标签按新排序,以及 alignmentforum.org;
@@ -194,7 +238,8 @@ node --check <(python3 -c "import re;s=open('index.html').read();print(re.search
 - **按 venue 与实验室检索**(DBLP 逐年翻 CCS / NDSS / USENIX Sec / S&P)。
   本轮以 arXiv 为主入口,纯论文集条目基本没进来。姊妹项目的教训:安全顶会论文九成在 arXiv 上,
   但用的是安全圈词汇,按主题关键词搜不出来。
-- **理论泳道需要独立确认。** 只有 3 个点,而且是搜索 + 核实之后的结果。
+- **理论泳道需要独立确认。**(2026-08-28 后为 5 个点:BEB / 不可判定 / 可证防御 / MTCR / 平滑证书。
+「确如所见的稀少」这个观察本身仍然值得写给懂行的人看。)
   值得请一个熟悉这块的人过一遍——**如果确实只有这么多,那本身就是一条值得写出来的观察**。
 - **中文与非英文文献未覆盖。**
 - **战线 09 指出的空洞:** 「在微调**之后**做行为评测」这条路线目前没有任何一篇论文系统研究过。

@@ -1372,5 +1372,287 @@
   "to": "beb",
   "type": "refute",
   "label": "在可证半径内给出确定性证书"
+ },
+ {
+  "from": "fairasr",
+  "to": "distasr",
+  "type": "support",
+  "label": "口径问题再加一维:预算"
+ },
+ {
+  "from": "fairasr",
+  "to": "adaptive",
+  "type": "support",
+  "label": "等预算下随机搜索+模板依然能打"
+ },
+ {
+  "from": "fairasr",
+  "to": "pair",
+  "type": "refute",
+  "label": "LLM 驱动攻击的排名在等预算下塌"
+ },
+ {
+  "from": "sokmt",
+  "to": "sok",
+  "type": "inherit",
+  "label": "SoK 的多轮专版"
+ },
+ {
+  "from": "sokmt",
+  "to": "crescendo",
+  "type": "support",
+  "label": "有效性=意图组织度,非轮数/长度"
+ },
+ {
+  "from": "suffixtrans",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "迁移问题从 GCG 继承"
+ },
+ {
+  "from": "suffixtrans",
+  "to": "refusaldir",
+  "type": "support",
+  "label": "迁移由拒答方向几何决定"
+ },
+ {
+  "from": "baj",
+  "to": "gcg",
+  "type": "inherit",
+  "label": "min-max 优化的跨合并族后缀"
+ },
+ {
+  "from": "baj",
+  "to": "skillmerge",
+  "type": "support",
+  "label": "静态干净的合并体同样被打穿"
+ },
+ {
+  "from": "logibreak",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "逻辑形式这一维"
+ },
+ {
+  "from": "logibreak",
+  "to": "structgen",
+  "type": "support",
+  "label": "对齐没泛化到逻辑表示"
+ },
+ {
+  "from": "ninja",
+  "to": "manyshot",
+  "type": "inherit",
+  "label": "长上下文这一维的良性垫料版"
+ },
+ {
+  "from": "ninja",
+  "to": "bon",
+  "type": "support",
+  "label": "固定算力下加长上下文胜过扩采样"
+ },
+ {
+  "from": "batchsafety",
+  "to": "jailbroken",
+  "type": "inherit",
+  "label": "批处理这一维:拒答信号被稀释"
+ },
+ {
+  "from": "batchsafety",
+  "to": "shallow",
+  "type": "support",
+  "label": "安全信号没铺满输入的同向证据"
+ },
+ {
+  "from": "psychjail",
+  "to": "pap",
+  "type": "inherit",
+  "label": "说服分类学的多轮+RL 版"
+ },
+ {
+  "from": "psychjail",
+  "to": "crescendo",
+  "type": "support",
+  "label": "跨轮升级推进意图,再加一证"
+ },
+ {
+  "from": "icd",
+  "to": "speakout",
+  "type": "inherit",
+  "label": "多轮拆解推到单词粒度"
+ },
+ {
+  "from": "icd",
+  "to": "shallow",
+  "type": "support",
+  "label": "逐词续写摊薄首 token 护栏"
+ },
+ {
+  "from": "inputaudit",
+  "to": "baseline",
+  "type": "inherit",
+  "label": "防御系统评估的传统,搬到本地部署"
+ },
+ {
+  "from": "inputaudit",
+  "to": "smoothllm",
+  "type": "refute",
+  "label": "六种输入侧防御逐一失效之一"
+ },
+ {
+  "from": "inputaudit",
+  "to": "erasecheck",
+  "type": "refute",
+  "label": "可证假设被违反,证不成"
+ },
+ {
+  "from": "inputaudit",
+  "to": "ppl",
+  "type": "refute",
+  "label": "困惑度过滤同样被审出"
+ },
+ {
+  "from": "sleight",
+  "to": "redteamlm",
+  "type": "inherit",
+  "label": "红队对象从模型换到监控器"
+ },
+ {
+  "from": "sleight",
+  "to": "attacker2nd",
+  "type": "support",
+  "label": "盲区地图:没抓到≠没有攻击"
+ },
+ {
+  "from": "neuroguard",
+  "to": "brittle",
+  "type": "inherit",
+  "label": "稀疏性诊断的施工版:摊开信号"
+ },
+ {
+  "from": "neuroguard",
+  "to": "simpleattacks",
+  "type": "refute",
+  "label": "针对消融训练,自适应后仍近零"
+ },
+ {
+  "from": "neuroguard",
+  "to": "dsa",
+  "type": "support",
+  "label": "同月同向:安全信号摊开可训练"
+ },
+ {
+  "from": "dsa",
+  "to": "brittle",
+  "type": "inherit",
+  "label": "单点失败诊断的冗余编码版"
+ },
+ {
+  "from": "dsa",
+  "to": "simpleattacks",
+  "type": "refute",
+  "label": "冗余编码后消融不再单点致命"
+ },
+ {
+  "from": "skillmerge",
+  "to": "shallow",
+  "type": "support",
+  "label": "静态拒答干净≠抗打,浅层证据"
+ },
+ {
+  "from": "skillmerge",
+  "to": "attacker2nd",
+  "type": "support",
+  "label": "合并安全必须过自适应评测"
+ },
+ {
+  "from": "foolsgold",
+  "to": "tar",
+  "type": "inherit",
+  "label": "抗篡改之外的第二条路:接受被撕"
+ },
+ {
+  "from": "foolsgold",
+  "to": "simpleattacks",
+  "type": "refute",
+  "label": "打穿了也拿假货:诱饵污染"
+ },
+ {
+  "from": "newtral",
+  "to": "lermen",
+  "type": "inherit",
+  "label": "LoRA 撕对齐的权重空间修复版"
+ },
+ {
+  "from": "refgeom",
+  "to": "refusaldir",
+  "type": "support",
+  "label": "低维几何由拒答训练动力学解释"
+ },
+ {
+  "from": "refgeom",
+  "to": "somdir",
+  "type": "support",
+  "label": "稀疏是训练产物,可训练地改变"
+ },
+ {
+  "from": "refgeom",
+  "to": "simpleattacks",
+  "type": "refute",
+  "label": "多样化拒答开头让消融变难"
+ },
+ {
+  "from": "harmmech",
+  "to": "brittle",
+  "type": "support",
+  "label": "参数级第三种稀疏性证据"
+ },
+ {
+  "from": "harmmech",
+  "to": "dpotox",
+  "type": "support",
+  "label": "对齐重塑而非删除能力,参数级"
+ },
+ {
+  "from": "antirank",
+  "to": "jbeval",
+  "type": "inherit",
+  "label": "判定口径之争的内部评分版"
+ },
+ {
+  "from": "antirank",
+  "to": "lasttoken",
+  "type": "refute",
+  "label": "探针评分在真实越狱上反序"
+ },
+ {
+  "from": "oneleak",
+  "to": "suffixtrans",
+  "type": "inherit",
+  "label": "迁移性的预训练源头"
+ },
+ {
+  "from": "oneleak",
+  "to": "deeb",
+  "type": "support",
+  "label": "底座的洞,微调修不掉"
+ },
+ {
+  "from": "mtcr",
+  "to": "provable",
+  "type": "inherit",
+  "label": "认证鲁棒性从单轮扩到多轮"
+ },
+ {
+  "from": "mtcr",
+  "to": "crescendo",
+  "type": "inherit",
+  "label": "多轮攻击形式化为 State-Adv MDP"
+ },
+ {
+  "from": "smoothcert",
+  "to": "smoothllm",
+  "type": "inherit",
+  "label": "换掉不现实假设,补概率证书"
  }
 ]

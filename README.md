@@ -58,10 +58,10 @@ llm-jailbreak-tracker/
 ├── template.html      ← 页面骨架 + CSS + 渲染器,不含数据
 ├── index.html         ← 生成产物,不要手改
 └── data/
-    ├── papers.json    ← 条目库(133) ← 主要在这里加东西
-    ├── edges.json     ← 签名边(229) ← 和这里
+    ├── papers.json    ← 条目库(155) ← 主要在这里加东西
+    ├── edges.json     ← 签名边(276) ← 和这里
     ├── fronts.json    ← 交火战线卡片(13)
-    ├── misread.json   ← 「常被系统性误读」标记(46)
+    ├── misread.json   ← 「常被系统性误读」标记(48)
     ├── lanes.json     ← 十一条主干泳道
     └── years.json     ← 时间轴刻度 [年份, t 坐标]
 ```
@@ -74,10 +74,10 @@ llm-jailbreak-tracker/
 
 | | |
 |---|---|
-| 条目 | 133(132 有 arXiv · 1 只在 NeurIPS 论文集) |
-| 边 | 229 —— 继承 98 · **佐证 42** · **反驳 89** |
+| 条目 | 155(153 有 arXiv · 1 只在 NeurIPS 论文集 · 1 机构研究博客) |
+| 边 | 276 —— 继承 117 · **佐证 61** · **反驳 98** |
 | 战线 | 13 条交火中 |
-| 引用核验 | **132 confirmed · 1 无 arXiv(NeurIPS 论文集,已核对)· 0 待核** |
+| 引用核验 | **154 confirmed · 1 无 arXiv(NeurIPS 论文集,已核对)· 0 待核** |
 | 泳道 | 11 条 · 2017–2026 |
 | 边数最多 | `gcg` 30 · `refusaldir` 15 · `jailbroken` 14 · `qifinetune` 12 · `hhrlhf` 11 |
 
