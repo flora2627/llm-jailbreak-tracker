@@ -1816,5 +1816,29 @@
   "to": "brittle",
   "type": "support",
   "label": "6 个可解释改动即可因果翻转,稀疏性侧证"
+ },
+ {
+  "from": "aisec",
+  "to": "attacker2nd",
+  "type": "inherit",
+  "label": "把已知攻击块组合成标准攻击集"
+ },
+ {
+  "from": "fairasr",
+  "to": "aisec",
+  "type": "support",
+  "label": "预算口径同向:攻击成本立成比较轴"
+ },
+ {
+  "from": "abliteration",
+  "to": "refusaldir",
+  "type": "support",
+  "label": "同月独立实现:方向→权重正交化"
+ },
+ {
+  "from": "simpleattacks",
+  "to": "abliteration",
+  "type": "inherit",
+  "label": "系统评测引用的技术源头"
  }
 ]

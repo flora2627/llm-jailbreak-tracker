@@ -146,7 +146,24 @@ node --check <(python3 -c "import re;s=open('index.html').read();print(re.search
 
 ## 历史留档
 
-### 2026-08-28 · 第三轮(+15 论文 · +27 边)
+### 2026-08-28 · 第四轮(博客/社区扫:+2 博客 · +4 边)
+
+**收进:**FAR AI「AI Security Leaderboard」(2026-07-29,预算口径的标准化横评,Grok 4.5 全域 $58 /
+Gemini 3.1 Pro <$300 vs Fable 5 / GPT-5.6 Sol >$14,000,附 arXiv 2608.03070 未核以博客为准);
+**mlabonne「Uncensor any LLM with abliteration」(2024-06-13)——建库待办点名要找的 abliteration 社区原始记录**,
+与拒答方向论文同月独立实现(方向→权重正交化),退化后 6h45m DPO 恢复能力的能力税细节入注记,并加 1 条误读标记。
+战线 05(pro)/12(con) 各加一弹。
+
+**本轮看过、超范围或不通,记录在此:**
+- UK AISI 2026-06~08 五篇(偏好-行为、贝叶斯停时、IRT、多智能体控制、谎言检测)——评测方法论/控制域,均不在 harmfulness 拒答范围。
+- Redwood 博客 2026-05~08 集中在 OpenAI/HuggingFace 入侵事件调查与 AI control——agent/控制域,不收。
+- **LessWrong / Alignment Forum 两种姿势都不通**:`/tag/*` 返回旧缓存,`/allPosts` 只渲染出导航(JS 站),
+  WebFetch 拿不到正文。持续缺口,下轮换 Google site: 检索或人工抄录。
+- Apollo Research 连续三次 socket closed,本轮不通;promptfoo LM Security DB 近期条目全是 agent/注入类,不收;
+  Gray Swan 本季无立场类内容;HF 博客 2026 上半年无相关帖(唯一相关即上文收录的 2024 abliteration)。
+- FAR AI「DeepSeek-V4-Pro 压力测试」(2026-05,低技能攻击者 98–100%)——纯应用型红队报告,按范围规则不收。
+
+
 
 第一轮 128 条枚举里的次优先候选补齐(多轮攻击 / 推理期防御 / 表现层评测 / 合并机制 / LRM 训练防御)。
 含 ICLR 2026(SEMA)、COLM 2026(LOCA)、SERA 2026 最佳论文(ADVERSA)、COLM AIW(合并塌缩)。
