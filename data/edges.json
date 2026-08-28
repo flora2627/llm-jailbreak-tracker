@@ -1654,5 +1654,167 @@
   "to": "smoothllm",
   "type": "inherit",
   "label": "换掉不现实假设,补概率证书"
+ },
+ {
+  "from": "adversa",
+  "to": "jbeval",
+  "type": "inherit",
+  "label": "判定器可靠性升级为一等研究对象"
+ },
+ {
+  "from": "sokmt",
+  "to": "adversa",
+  "type": "support",
+  "label": "越狱集中早轮,与「组织度而非轮数」同向"
+ },
+ {
+  "from": "mood",
+  "to": "pasttense",
+  "type": "inherit",
+  "label": "时态这一维 → 非祈使句法整族"
+ },
+ {
+  "from": "mood",
+  "to": "refgeom",
+  "type": "support",
+  "label": "训练数据多样性作为硬化杠杆"
+ },
+ {
+  "from": "ico",
+  "to": "deepinception",
+  "type": "inherit",
+  "label": "场景上下文 → 上下文语义偏移优化"
+ },
+ {
+  "from": "ico",
+  "to": "pair",
+  "type": "inherit",
+  "label": "目标反馈迭代的黑盒循环"
+ },
+ {
+  "from": "sema",
+  "to": "j2",
+  "type": "inherit",
+  "label": "攻击者做成微调模型,自动化+多轮"
+ },
+ {
+  "from": "sema",
+  "to": "advprompter",
+  "type": "inherit",
+  "label": "优化蒸馏进攻击者生成器"
+ },
+ {
+  "from": "overrefusal",
+  "to": "overrefrep",
+  "type": "support",
+  "label": "过度拒答的表示层机制与干预"
+ },
+ {
+  "from": "deception",
+  "to": "pap",
+  "type": "inherit",
+  "label": "心理操纵模板化:登门槛效应"
+ },
+ {
+  "from": "psychjail",
+  "to": "deception",
+  "type": "support",
+  "label": "先行的心理操纵多轮攻击证据"
+ },
+ {
+  "from": "crg",
+  "to": "cothijack",
+  "type": "refute",
+  "label": "推理期路由守卫针对推理中心越狱(未给数字)"
+ },
+ {
+  "from": "probguard",
+  "to": "safedecoding",
+  "type": "inherit",
+  "label": "解码期防御的分布校准版"
+ },
+ {
+  "from": "tripwire",
+  "to": "safetyheads",
+  "type": "inherit",
+  "label": "安全神经元从保护对象改成绊线"
+ },
+ {
+  "from": "tripwire",
+  "to": "refusaldir",
+  "type": "support",
+  "label": "拒答可由内部信号触发"
+ },
+ {
+  "from": "hiroute",
+  "to": "rpo",
+  "type": "inherit",
+  "label": "单一提示 → 路由式提示专家"
+ },
+ {
+  "from": "hiroute",
+  "to": "overrefusal",
+  "type": "support",
+  "label": "安全-可用性权衡进设计目标"
+ },
+ {
+  "from": "advsafe",
+  "to": "delibalign",
+  "type": "inherit",
+  "label": "安全推理进训练:解构对抗机制"
+ },
+ {
+  "from": "advsafe",
+  "to": "attacker2nd",
+  "type": "support",
+  "label": "把自适应攻击者当训练信号"
+ },
+ {
+  "from": "sgasa",
+  "to": "cai",
+  "type": "inherit",
+  "label": "成文原则 → 模型自己合成准则"
+ },
+ {
+  "from": "sgasa",
+  "to": "delibalign",
+  "type": "inherit",
+  "label": "推理模型的安全推理内化"
+ },
+ {
+  "from": "asymcollapse",
+  "to": "lermen",
+  "type": "inherit",
+  "label": "权重算术改拒答的机制版"
+ },
+ {
+  "from": "skillmerge",
+  "to": "asymcollapse",
+  "type": "support",
+  "label": "合并安全三角:量级不对称这一维"
+ },
+ {
+  "from": "auditgap",
+  "to": "attacker2nd",
+  "type": "inherit",
+  "label": "静态审计不足以评测防御的表示级版"
+ },
+ {
+  "from": "auditgap",
+  "to": "lasttoken",
+  "type": "refute",
+  "label": "静态潜空间探针判不出表示级脆弱"
+ },
+ {
+  "from": "loca",
+  "to": "somdir",
+  "type": "support",
+  "label": "局部解释暗示多机制并存"
+ },
+ {
+  "from": "loca",
+  "to": "brittle",
+  "type": "support",
+  "label": "6 个可解释改动即可因果翻转,稀疏性侧证"
  }
 ]
